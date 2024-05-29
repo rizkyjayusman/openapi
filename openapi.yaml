@@ -13,15 +13,19 @@ info:
 servers:
   - url: "http://localhost:8080"
 tags:
+  - name: "Company API"
+    description: "Company Company"
+  - name: "User API"
+    description: "User API"
   - name: "Todo API"
     description: "Todo API"
 paths:
-  /api/todos/{id}:
+  /api/users/{id}:
     get:
       tags:
-        - "Todo API"
-      summary: "Get Todo Detail"
-      description: "Get Todo by ID"
+        - "User API"
+      summary: "Get User Detail"
+      description: "Get User by ID"
       operationId: "findById"
       parameters:
         - name: "id"
@@ -36,14 +40,98 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
         "404":
           description: "Not Found"
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/Error"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+      security:
+        - api: []
+    put:
+      tags:
+        - "User API"
+      summary: "Update User"
+      description: "Update an existing User"
+      operationId: "update"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+      security:
+        - api: []
+    delete:
+      tags:
+        - "User API"
+      summary: "Delete User"
+      description: "Delete an existing User"
+      operationId: "delete"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "204":
+          description: "No Content"
+      security:
+        - api: []
+  /api/todos/{id}:
+    get:
+      tags:
+        - "Todo API"
+      summary: "Get Todo Detail"
+      description: "Get Todo by ID"
+      operationId: "findById_1"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
         "500":
           description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
           content:
             '*/*':
               schema:
@@ -61,7 +149,7 @@ paths:
         - "Todo API"
       summary: "Update Todo"
       description: "Update an existing Todo"
-      operationId: "update"
+      operationId: "update_1"
       parameters:
         - name: "id"
           in: "path"
@@ -88,7 +176,7 @@ paths:
         - "Todo API"
       summary: "Delete Todo"
       description: "Delete an existing Todo"
-      operationId: "delete"
+      operationId: "delete_1"
       parameters:
         - name: "id"
           in: "path"
@@ -100,14 +188,173 @@ paths:
           description: "No Content"
       security:
         - api: []
+  /api/companies/{id}:
+    get:
+      tags:
+        - "Company API"
+      summary: "Get Company Detail"
+      description: "Get Company by ID"
+      operationId: "findById_2"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Company"
+      security:
+        - api: []
+    put:
+      tags:
+        - "Company API"
+      summary: "Update Company"
+      description: "Update an existing Company"
+      operationId: "update_2"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Company"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Company"
+      security:
+        - api: []
+    delete:
+      tags:
+        - "Company API"
+      summary: "Delete Company"
+      description: "Delete an existing Company"
+      operationId: "delete_2"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "204":
+          description: "No Content"
+      security:
+        - api: []
+  /api/users:
+    get:
+      tags:
+        - "User API"
+      summary: "Get All User List"
+      description: "Get All User List"
+      operationId: "findAll"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/User"
+      security:
+        - api: []
+    post:
+      tags:
+        - "User API"
+      summary: "Save User"
+      description: "Create new User"
+      operationId: "save"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+      security:
+        - api: []
   /api/todos:
     get:
       tags:
         - "Todo API"
       summary: "Get All Todo List"
       description: "Get All Todo List"
-      operationId: "findAll"
+      operationId: "findAll_1"
       responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
         "200":
           description: "OK"
           content:
@@ -123,7 +370,7 @@ paths:
         - "Todo API"
       summary: "Save Todo"
       description: "Create new Todo"
-      operationId: "save"
+      operationId: "save_1"
       requestBody:
         content:
           application/json:
@@ -139,10 +386,86 @@ paths:
                 $ref: "#/components/schemas/Todo"
       security:
         - api: []
+  /api/companies:
+    get:
+      tags:
+        - "Company API"
+      summary: "Get All Company List"
+      description: "Get All Company List"
+      operationId: "findAll_2"
+      responses:
+        "400":
+          description: "Bad Request"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: "Not Found"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Error"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Company"
+      security:
+        - api: []
+    post:
+      tags:
+        - "Company API"
+      summary: "Save Company"
+      description: "Create new Company"
+      operationId: "save_2"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Company"
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Company"
+      security:
+        - api: []
 components:
   schemas:
+    User:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        fullName:
+          type: "string"
     Todo:
       type: "object"
+      properties:
+        title:
+          type: "string"
+        description:
+          type: "string"
+    Company:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        email:
+          type: "string"
     Error:
       type: "object"
       properties:
